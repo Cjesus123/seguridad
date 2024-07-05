@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: auth-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8081
+
+jwt:
+  secret: wIXZCWObK5oSdZriKq17XKf77UanlW/ZP/X8A7h50YPlMKcNNWIYsA+B1yJdGCHzpA02RQHqeu3JpNsI150oeQ==
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true

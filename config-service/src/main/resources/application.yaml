@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          default-label: gateway-ejemplo
+          uri: https://github.com/renzo611/tesis-backend
+          search-paths: config-data
+  application:
+    name: config-service
