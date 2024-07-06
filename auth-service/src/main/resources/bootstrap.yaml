@@ -5,6 +5,24 @@ spring:
     config:
       enabled: true
       uri: http://localhost:8081
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: huancocristian@gmail.com
+    password: djmvfckbudqqybfd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+
+mail:
+  urlFront: http://localhost:4200/login/changepassword/
+
+
 
 jwt:
   secret: wIXZCWObK5oSdZriKq17XKf77UanlW/ZP/X8A7h50YPlMKcNNWIYsA+B1yJdGCHzpA02RQHqeu3JpNsI150oeQ==

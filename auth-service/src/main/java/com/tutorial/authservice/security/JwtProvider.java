@@ -1,7 +1,7 @@
 package com.tutorial.authservice.security;
 
 import com.tutorial.authservice.dto.RequestDto;
-import com.tutorial.authservice.entity.AuthUser;
+import com.tutorial.authservice.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +28,11 @@ public class JwtProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(AuthUser authUser) {
+    public String createToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims = Jwts.claims().setSubject(authUser.getUserName());
-        claims.put("id", authUser.getId());
-        claims.put("role", authUser.getRole());
+        claims = Jwts.claims().setSubject(user.getUserName());
+        claims.put("id", user.getId());
+        claims.put("role", user.getRole());
         Date now = new Date();
         Date exp = new Date(now.getTime() + 3600000);
         return Jwts.builder()

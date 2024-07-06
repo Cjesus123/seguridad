@@ -14,11 +14,15 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class AuthUser {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
+    private String lastName;
+    private String email;
     private String userName;
     private String password;
+    private String tokenPassword;
     private String role;
 }

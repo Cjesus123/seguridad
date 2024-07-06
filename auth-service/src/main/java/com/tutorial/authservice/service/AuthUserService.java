@@ -3,7 +3,7 @@ package com.tutorial.authservice.service;
 import com.tutorial.authservice.dto.AuthUserDto;
 import com.tutorial.authservice.dto.RequestDto;
 import com.tutorial.authservice.dto.TokenDto;
-import com.tutorial.authservice.entity.AuthUser;
+import com.tutorial.authservice.entity.User;
 import com.tutorial.authservice.repository.AuthUserRepository;
 import com.tutorial.authservice.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,18 @@ public class AuthUserService {
     @Autowired
     JwtProvider jwtProvider;
 
+    public Optional<User> getByUsernameOrEmail(String usernameOrEmail){
+        return this.authUserRepository.findByUserNameOrEmail(usernameOrEmail,usernameOrEmail);
+    }
+
 
     public TokenDto login(AuthUserDto dto) {
-        Optional<AuthUser> user = authUserRepository.findByUserName(dto.getUserName());
-        if(user.isEmpty())
+        Optional<User> user = authUserRepository.findByUserName(dto.getUserName());
+        if(user.isEmpty()) {
+            System.out.println("NO ENCONTRE NADA");
             return null;
+        }
+        System.out.println("HOLA " + user.get().getUserName());
         if(passwordEncoder.matches(dto.getPassword(), user.get().getPassword()))
             return new TokenDto(jwtProvider.createToken(user.get()));
         return null;
@@ -38,8 +45,16 @@ public class AuthUserService {
         if(!jwtProvider.validate(token, dto))
             return null;
         String username = jwtProvider.getUserNameFromToken(token);
-        if(!authUserRepository.findByUserName(username).isPresent())
+        if(authUserRepository.findByUserName(username).isEmpty())
             return null;
         return new TokenDto(token);
+    }
+
+    public void save(User user){
+        authUserRepository.save(user);
+    }
+
+    public Optional<User> getByTokenPassword(String tokenPassword){
+        return this.authUserRepository.findByTokenPassword(tokenPassword);
     }
 }
