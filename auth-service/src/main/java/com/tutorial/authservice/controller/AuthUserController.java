@@ -1,10 +1,8 @@
 package com.tutorial.authservice.controller;
 
 import com.tutorial.authservice.dto.AuthUserDto;
-import com.tutorial.authservice.dto.NewUserDto;
 import com.tutorial.authservice.dto.RequestDto;
 import com.tutorial.authservice.dto.TokenDto;
-import com.tutorial.authservice.entity.AuthUser;
 import com.tutorial.authservice.service.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +29,5 @@ public class AuthUserController {
         if(tokenDto == null)
             return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(tokenDto);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<AuthUser> create(@RequestBody NewUserDto dto){
-        AuthUser authUser = authUserService.save(dto);
-        if(authUser == null)
-            return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(authUser);
     }
 }

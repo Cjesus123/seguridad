@@ -1,7 +1,6 @@
 package com.tutorial.authservice.service;
 
 import com.tutorial.authservice.dto.AuthUserDto;
-import com.tutorial.authservice.dto.NewUserDto;
 import com.tutorial.authservice.dto.RequestDto;
 import com.tutorial.authservice.dto.TokenDto;
 import com.tutorial.authservice.entity.AuthUser;
@@ -25,18 +24,6 @@ public class AuthUserService {
     @Autowired
     JwtProvider jwtProvider;
 
-    public AuthUser save(NewUserDto dto) {
-        Optional<AuthUser> user = authUserRepository.findByUserName(dto.getUserName());
-        if(user.isPresent())
-            return null;
-        String password = passwordEncoder.encode(dto.getPassword());
-        AuthUser authUser = AuthUser.builder()
-                .userName(dto.getUserName())
-                .password(password)
-                .role(dto.getRole())
-                .build();
-        return authUserRepository.save(authUser);
-    }
 
     public TokenDto login(AuthUserDto dto) {
         Optional<AuthUser> user = authUserRepository.findByUserName(dto.getUserName());

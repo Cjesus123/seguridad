@@ -1,4 +1,4 @@
-package com.tutorial.authservice.dto;
+package com.tutorial.userservice.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
