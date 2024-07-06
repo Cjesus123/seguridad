@@ -1,5 +1,7 @@
 package com.tutorial.userservice.DTO;
 
+import com.tutorial.userservice.entity.Role;
+import com.tutorial.userservice.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +18,5 @@ public class NewUserDto {
     private String userName;
     private String password;
     private String tokenPassword;
-    private String role;
+    private RoleName role;
 }

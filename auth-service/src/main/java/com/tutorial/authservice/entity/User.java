@@ -1,14 +1,10 @@
 package com.tutorial.authservice.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,5 +21,10 @@ public class User {
     private String userName;
     private String password;
     private String tokenPassword;
-    private String role;
+    @ManyToOne
+    private Role role;
+
+    public String getRole() {
+        return role.getRoleName().name();
+    }
 }

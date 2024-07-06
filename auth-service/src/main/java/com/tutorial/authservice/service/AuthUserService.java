@@ -32,10 +32,8 @@ public class AuthUserService {
     public TokenDto login(AuthUserDto dto) {
         Optional<User> user = authUserRepository.findByUserName(dto.getUserName());
         if(user.isEmpty()) {
-            System.out.println("NO ENCONTRE NADA");
             return null;
         }
-        System.out.println("HOLA " + user.get().getUserName());
         if(passwordEncoder.matches(dto.getPassword(), user.get().getPassword()))
             return new TokenDto(jwtProvider.createToken(user.get()));
         return null;
