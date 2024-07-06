@@ -14,12 +14,16 @@ eureka:
         method: "POST"
       - uri: "/user"
         method: "GET"
+      - uri: "/user/savecar/{1}[1-9]+[0-9]*"
+        method: "POST"
+      - uri: "/user/savebike/{1}[1-9]+[0-9]*"
+        method: "POST"
 
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/database
     username: root
-    password: 12345
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
