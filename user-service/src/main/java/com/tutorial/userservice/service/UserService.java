@@ -15,6 +15,7 @@ public class UserService {
     @Autowired
     AuthUserRepository authUserRepository;
 
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     public AuthUser save(NewUserDto dto) {
