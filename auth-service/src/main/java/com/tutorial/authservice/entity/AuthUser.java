@@ -16,7 +16,6 @@ import jakarta.persistence.Id;
 @Builder
 @Entity
 public class AuthUser {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
