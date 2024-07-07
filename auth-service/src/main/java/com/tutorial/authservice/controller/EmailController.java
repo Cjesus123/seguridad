@@ -1,8 +1,8 @@
 package com.tutorial.authservice.controller;
 
-import com.tutorial.authservice.emailpassword.dto.ChangePasswordDTO;
-import com.tutorial.authservice.emailpassword.dto.EmailValuesDTO;
-import com.tutorial.authservice.emailpassword.service.EmailService;
+import com.tutorial.authservice.dto.ChangePasswordDTO;
+import com.tutorial.authservice.dto.EmailValuesDTO;
+import com.tutorial.authservice.service.EmailService;
 import com.tutorial.authservice.entity.User;
 import com.tutorial.authservice.service.AuthUserService;
 import com.tutorial.authservice.utiles.Mensaje;
@@ -20,7 +20,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/email-password")
-@CrossOrigin
 public class EmailController {
     @Autowired
     EmailService emailService;

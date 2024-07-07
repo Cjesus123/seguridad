@@ -1,4 +1,4 @@
-package com.tutorial.authservice.emailpassword.config;
+package com.tutorial.authservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

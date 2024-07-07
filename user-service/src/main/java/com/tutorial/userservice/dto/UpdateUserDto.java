@@ -1,6 +1,5 @@
-package com.tutorial.userservice.DTO;
+package com.tutorial.userservice.dto;
 
-import com.tutorial.userservice.entity.Role;
 import com.tutorial.userservice.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class NewUserDto {
+public class UpdateUserDto {
+    private int id;
     private String name;
     private String lastName;
     private String email;
     private String userName;
-    private String password;
-    private String tokenPassword;
     private RoleName role;
 }

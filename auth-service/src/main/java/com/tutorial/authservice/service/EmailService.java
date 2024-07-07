@@ -1,6 +1,6 @@
-package com.tutorial.authservice.emailpassword.service;
+package com.tutorial.authservice.service;
 
-import com.tutorial.authservice.emailpassword.dto.EmailValuesDTO;
+import com.tutorial.authservice.dto.EmailValuesDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +25,6 @@ public class EmailService {
     @Value(value = "${mail.urlFront}")
     private String emailFront;
 
-    public void sendEmail(){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("huancocristian@gmail.com");
-        message.setTo("huancocristian@gmail.com");
-        message.setSubject("Prueba envio email simple");
-        message.setText("Contenido");
-        mailSender.send(message);
-    }
 
     public void sendEmailTemplate(EmailValuesDTO emailValuesDTO){
         MimeMessage mimeMessage = mailSender.createMimeMessage();

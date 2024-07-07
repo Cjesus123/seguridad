@@ -1,4 +1,4 @@
-package com.tutorial.authservice.emailpassword.dto;
+package com.tutorial.authservice.dto;
 
 import lombok.Getter;
 import lombok.Setter;

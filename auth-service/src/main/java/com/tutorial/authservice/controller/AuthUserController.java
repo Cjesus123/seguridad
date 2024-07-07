@@ -6,30 +6,30 @@ import com.tutorial.authservice.dto.TokenDto;
 import com.tutorial.authservice.service.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
 public class AuthUserController {
 
     @Autowired
     AuthUserService authUserService;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody AuthUserDto dto){
-        System.out.println("RECIBI; " + dto.getUserName() + " " + dto.getPassword());
+    public ResponseEntity<?> login(@RequestBody AuthUserDto dto){
         TokenDto tokenDto = authUserService.login(dto);
         if(tokenDto == null)
-            return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(tokenDto);
+            return ResponseEntity.badRequest().body("Usuario o Contraseña incorrectos");
+        return ResponseEntity.ok().body(tokenDto);
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<TokenDto> validate(@RequestParam String token, @RequestBody RequestDto dto){
+    public ResponseEntity<?> validate(@RequestParam String token, @RequestBody RequestDto dto){
         TokenDto tokenDto = authUserService.validate(token, dto);
         if(tokenDto == null)
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Error el validar token");
         return ResponseEntity.ok(tokenDto);
     }
 }

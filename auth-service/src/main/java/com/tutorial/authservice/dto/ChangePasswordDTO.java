@@ -1,4 +1,4 @@
-package com.tutorial.authservice.emailpassword.dto;
+package com.tutorial.authservice.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
