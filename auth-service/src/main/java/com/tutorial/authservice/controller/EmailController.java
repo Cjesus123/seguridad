@@ -20,6 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/email-password")
+@CrossOrigin
 public class EmailController {
     @Autowired
     EmailService emailService;

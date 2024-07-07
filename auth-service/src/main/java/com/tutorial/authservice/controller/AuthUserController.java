@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthUserController {
 
     @Autowired
@@ -17,6 +18,7 @@ public class AuthUserController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody AuthUserDto dto){
+        System.out.println("RECIBI; " + dto.getUserName() + " " + dto.getPassword());
         TokenDto tokenDto = authUserService.login(dto);
         if(tokenDto == null)
             return ResponseEntity.badRequest().build();
