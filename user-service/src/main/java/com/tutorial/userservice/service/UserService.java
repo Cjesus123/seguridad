@@ -5,6 +5,7 @@ import com.tutorial.userservice.dto.NewUserDto;
 import com.tutorial.userservice.dto.UpdateUserDto;
 import com.tutorial.userservice.entity.Role;
 import com.tutorial.userservice.entity.User;
+import com.tutorial.userservice.enums.RoleName;
 import com.tutorial.userservice.repository.RoleRepository;
 import com.tutorial.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,42 +62,48 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User UpdateUser(UpdateUserDto updateUserDto){
-        if(!userRepository.existsById(updateUserDto.getId())){
-            throw new RuntimeException("El usuario con id: "+updateUserDto.getId()+" no existe");
-        }
-        User user = this.userRepository.findById(updateUserDto.getId()).get();
-        user.setName(updateUserDto.getName());
-        user.setEmail(updateUserDto.getEmail());
-        user.setUserName(updateUserDto.getUserName());
-        user.setLastName(updateUserDto.getLastName());
-        user.setRole(new Role(updateUserDto.getRole()));
+    public User updateUser(UpdateUserDto updateUserDto) {
+        Optional<User> existingUser = userRepository.findById(updateUserDto.getId());
+        if (existingUser.isEmpty())
+            throw new RuntimeException("El usuario con id: " + updateUserDto.getId() + " no existe");
+        Optional<User> userWithSameUsername = userRepository.findByUserName(updateUserDto.getUserName());
+        if (userWithSameUsername.isPresent() && !userWithSameUsername.get().getId().equals(updateUserDto.getId()))
+            throw new RuntimeException("El nombre de usuario ya está en uso");
+        Optional<User> userWithSameEmail = userRepository.findByEmail(updateUserDto.getEmail());
+        if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(updateUserDto.getId()))
+            throw new RuntimeException("El email ya está en uso");
+        Optional<Role> role = roleRepository.findByRoleName(updateUserDto.getRole());
+        if (role.isEmpty())
+            throw new RuntimeException("El rol seleccionado no existe");
+        User user = existingUser.get();
+        user.actualizarDatos(updateUserDto.getName(),
+                updateUserDto.getLastName(),
+                updateUserDto.getUserName(),
+                updateUserDto.getEmail(),
+                role.get());
         return userRepository.save(user);
     }
 
     public void deleteUser(int id){
-        if(userRepository.existsById(id))
-            this.userRepository.deleteById(id);
-        throw new RuntimeException("El usuario con id: "+id+" no existe");
+        if(!userRepository.existsById(id))
+            throw new RuntimeException("El usuario con id: "+id+" no existe");
+        this.userRepository.deleteById(id);
     }
 
     public User save(NewUserDto dto) {
-        Optional<User> user = userRepository.findByUserName(dto.getUserName());
-        if(user.isPresent() && user.get().getUserName().equals(dto.getUserName()))
+        if(userRepository.findByUserName(dto.getUserName()).isPresent())
             throw new RuntimeException("El nombre de usuario ya existe");
-        if(user.isPresent() && user.get().getEmail().equals(dto.getEmail())){
+        if(userRepository.findByEmail(dto.getEmail()).isPresent()){
             throw new RuntimeException("El email ya existe");
         }
         Optional<Role> role = roleRepository.findByRoleName(dto.getRole());
+        if (role.isEmpty()) {
+            throw new RuntimeException("El rol ingresado no existe");
+        }
+        if(dto.getPassword() == null || dto.getPassword().isBlank())
+            throw new RuntimeException("Contraseña no valida");
         String password = passwordEncoder.encode(dto.getPassword());
-        User authUser = User.builder()
-                .name(dto.getName())
-                .lastName(dto.getLastName())
-                .userName(dto.getUserName())
-                .email(dto.getEmail())
-                .password(password)
-                .role(role.get())
-                .build();
+        User authUser = new User(null,dto.getName(),dto.getLastName(),dto.getUserName(),dto.getEmail(),password,role.get(),null);
         return userRepository.save(authUser);
     }
 

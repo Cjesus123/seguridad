@@ -59,16 +59,18 @@ public class UserController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<?> create(@RequestBody NewUserDto dto){
-        User user = userService.save(dto);
-        if(user == null)
-            return ResponseEntity.badRequest().body("Complete los campos faltantes");
-        return ResponseEntity.ok(user);
+        try {
+            User user = userService.save(dto);
+            return ResponseEntity.ok().body(user);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/actualizar")
-    public ResponseEntity<?> update(@RequestBody UpdateUserDto dto){
+    public ResponseEntity<?> updateUser(@RequestBody UpdateUserDto dto){
         try{
-            User user = userService.UpdateUser(dto);
+            User user = userService.updateUser(dto);
             return ResponseEntity.ok().body(user);
         }catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
