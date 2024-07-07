@@ -1,28 +1,33 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
 spring:
   cloud:
     gateway:
-      httpclient:
-        pool:
-          max-connections: 500 # Configuración de conexión máxima
+      discovery:
+        locator:
+          enabled: true
       routes:
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/user/**
           filters:
-            - name: Cors
-              args:
-                allowedOrigins: "'*'"
-                allowedMethods: "'GET, POST, PUT, DELETE'"
-                allowedHeaders: "'*'"
+            - AuthFilter
         - id: auth-service
           uri: lb://auth-service
           predicates:
             - Path=/auth/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
             - Path=/email-password/**
-          filters:
-            - name: Cors
-              args:
-                allowedOrigins: "'*'"
-                allowedMethods: "'GET, POST, PUT, DELETE'"
-                allowedHeaders: "'*'"
