@@ -5,12 +5,9 @@ import com.tutorial.userservice.dto.NewUserDto;
 import com.tutorial.userservice.dto.UpdateUserDto;
 import com.tutorial.userservice.entity.Role;
 import com.tutorial.userservice.entity.User;
-import com.tutorial.userservice.enums.RoleName;
 import com.tutorial.userservice.repository.RoleRepository;
 import com.tutorial.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,36 +27,6 @@ public class UserService {
 
     public Optional<User> getById(int id){
         return this.userRepository.findById(id);
-    }
-
-    public void changePassword(ChangePasswordDto changePasswordDto) {
-        if(changePasswordDto.getOldPassword() == null || changePasswordDto.getOldPassword().isBlank()){
-            throw new RuntimeException("Contraseña Antigua no valida");
-        }
-        if(changePasswordDto.getNewPassword() == null || changePasswordDto.getNewPassword().isBlank()){
-            throw new RuntimeException("Contraseña nueva no valida");
-        }
-        if (changePasswordDto.getConfirmPassword() == null || changePasswordDto.getConfirmPassword().isBlank()){
-            throw new RuntimeException("Contraseña de confirmacion no valida");
-        }
-        if (!changePasswordDto.getNewPassword().equals(changePasswordDto.getConfirmPassword())){
-            throw new RuntimeException("Las contraseñas nuevas deben ser iguales.");
-        }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new RuntimeException("Usuario no autenticado.");
-        }
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUserName(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
-
-        if (!passwordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())) {
-            throw new RuntimeException("La contraseña anterior es incorrecta.");
-        }
-        user.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
-        userRepository.save(user);
     }
 
     public User updateUser(UpdateUserDto updateUserDto) {
@@ -109,5 +76,17 @@ public class UserService {
 
     public List<User> getAll(){
         return userRepository.findAll();
+    }
+
+    public void changePassword(String username,ChangePasswordDto changePasswordDto){
+        Optional<User> user = userRepository.findByUserName(username);
+        if(user.isEmpty())
+            throw new RuntimeException("El usuario " + username + " no existe");
+        if (!passwordEncoder.matches(changePasswordDto.getOldPassword(), user.get().getPassword()))
+            throw new RuntimeException("La contraseña actual es incorrecta");
+        if(!changePasswordDto.getNewPassword().equals(changePasswordDto.getConfirmPassword()))
+            throw new RuntimeException("Las contraseñas no coinciden");
+        user.get().setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        userRepository.save(user.get());
     }
 }

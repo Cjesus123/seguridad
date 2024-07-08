@@ -1,7 +1,7 @@
 package com.tutorial.authservice.controller;
 
-import com.tutorial.authservice.dto.ChangePasswordDTO;
 import com.tutorial.authservice.dto.EmailValuesDTO;
+import com.tutorial.authservice.dto.RecoverPasswordDto;
 import com.tutorial.authservice.service.EmailService;
 import com.tutorial.authservice.entity.User;
 import com.tutorial.authservice.service.AuthUserService;
@@ -53,8 +53,8 @@ public class EmailController {
         return new ResponseEntity<>(new Mensaje("Correo enviado con exito"),HttpStatus.OK);
     }
 
-    @PostMapping ("/change-password")
-    public ResponseEntity<?> changePassword (@Valid @RequestBody ChangePasswordDTO dto, BindingResult bindingResult){
+    @PostMapping ("/recover-password")
+    public ResponseEntity<?> recoverPassword (@Valid @RequestBody RecoverPasswordDto dto, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje ("Campos mal puestos"), HttpStatus.BAD_REQUEST);
         if(!dto.getPassword().equals (dto.getConfirmPassword()))

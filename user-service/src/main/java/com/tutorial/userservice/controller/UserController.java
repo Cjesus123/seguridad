@@ -4,8 +4,10 @@ import com.tutorial.userservice.dto.ChangePasswordDto;
 import com.tutorial.userservice.dto.NewUserDto;
 import com.tutorial.userservice.dto.UpdateUserDto;
 import com.tutorial.userservice.entity.User;
+import com.tutorial.userservice.service.JWTService;
 import com.tutorial.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JWTService jwtService;
 
     @GetMapping("/detalle/{id}")
     public ResponseEntity<?> getById(@PathVariable int id){
@@ -37,15 +42,6 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
-        try {
-            userService.changePassword(changePasswordDto);
-            return ResponseEntity.ok("Contraseña actualizada exitosamente.");
-        }catch (RuntimeException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
@@ -73,6 +69,16 @@ public class UserController {
             User user = userService.updateUser(dto);
             return ResponseEntity.ok().body(user);
         }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody ChangePasswordDto changePasswordDto) {
+        try{
+            userService.changePassword(jwtService.getUsernameFromToken(token),changePasswordDto);
+            return ResponseEntity.ok().body("Contraseña Actualizada");
+        }catch(RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

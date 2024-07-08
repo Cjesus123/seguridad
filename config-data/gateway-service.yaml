@@ -31,3 +31,9 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/email-password/**
+        - id: python-service
+          uri: lb://PYTHON-SERVICE
+          predicates:
+            - Path=/python/**
+          filters:
+              - StripPrefix=1
