@@ -15,7 +15,7 @@ public class Career{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nombre;
+    private String name;
     @OneToMany(mappedBy = "career", cascade = CascadeType.ALL)
-    private List<StudyPlan> planesDeEstudio = new ArrayList<>();
+    private List<StudyPlan> studyPlans = new ArrayList<>();
 }

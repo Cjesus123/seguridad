@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/aula-service/pom.xml" />
         <option value="$PROJECT_DIR$/docente-service/pom.xml" />
         <option value="$PROJECT_DIR$/carrera-service/pom.xml" />
+        <option value="$PROJECT_DIR$/plandeestudio-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

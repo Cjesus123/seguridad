@@ -31,6 +31,14 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/email-password/**
+        - id: carrera-service
+          uri: lb://carrera-service
+          filters:
+            - AuthFilter
+        - id: plandeestudio-service
+          uri: lb://plandeestudio-service
+          filters:
+            - AuthFilter
         - id: aula-service
           uri: lb://aula-service
           filters:

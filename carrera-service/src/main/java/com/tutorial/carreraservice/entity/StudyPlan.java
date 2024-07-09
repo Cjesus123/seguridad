@@ -1,5 +1,7 @@
 package com.tutorial.carreraservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,11 +18,10 @@ public class StudyPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-
     @ManyToOne
-    @JoinColumn
+    @JsonBackReference
+    @JoinColumn(name = "career_id")
     private Career career;
-
     @OneToMany(mappedBy = "studyPlan", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
 }

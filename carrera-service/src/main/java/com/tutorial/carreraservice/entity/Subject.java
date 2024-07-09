@@ -1,5 +1,7 @@
 package com.tutorial.carreraservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,5 +18,6 @@ public class Subject {
     private int numberRegistered;
     @ManyToOne
     @JoinColumn
+    @JsonBackReference
     private StudyPlan studyPlan;
 }

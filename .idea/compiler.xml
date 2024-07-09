@@ -13,6 +13,7 @@
         <module name="carrera-service" />
         <module name="gateway-service" />
         <module name="aula-service" />
+        <module name="plandeestudio-service" />
         <module name="user-service" />
         <module name="docente-service" />
       </profile>
@@ -37,6 +38,7 @@
       <module name="docente-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="plandeestudio-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>

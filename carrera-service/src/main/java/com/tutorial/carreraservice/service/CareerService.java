@@ -32,8 +32,8 @@ public class CareerService {
     @Transactional
     public Career updateCareer(Integer id, Career updatedCareer) {
         Career career = getCareerById(id);
-        career.setNombre(updatedCareer.getNombre());
-        career.setPlanesDeEstudio(updatedCareer.getPlanesDeEstudio());
+        career.setName(updatedCareer.getName());
+        career.setStudyPlans(updatedCareer.getStudyPlans());
         return careerRepository.save(career);
     }
 
@@ -45,14 +45,17 @@ public class CareerService {
     @Transactional
     public Career addStudyPlansToCareer(Integer careerId, List<StudyPlan> studyPlans) {
         Career career = getCareerById(careerId);
-        career.getPlanesDeEstudio().addAll(studyPlans);
+        for (StudyPlan studyPlan : studyPlans) {
+            studyPlan.setCareer(career); // Establecer la relación con Career
+            career.getStudyPlans().add(studyPlan);
+        }
         return careerRepository.save(career);
     }
 
     @Transactional
     public Career removeStudyPlanFromCareer(Integer careerId, Integer studyPlanId) {
         Career career = getCareerById(careerId);
-        career.getPlanesDeEstudio().removeIf(plan -> plan.getId().equals(studyPlanId));
+        career.getStudyPlans().removeIf(plan -> plan.getId().equals(studyPlanId));
         return careerRepository.save(career);
     }
 }
