@@ -10,17 +10,21 @@
         <module name="eureka-service" />
         <module name="auth-service" />
         <module name="config-service" />
-        <module name="gateway-service" />
         <module name="user-service" />
+        <module name="gateway-service" />
+        <module name="aula-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="aulas-service" target="17" />
       <module name="bike-service" target="17" />
       <module name="car-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="aula-service" options="-parameters" />
+      <module name="aulas-service" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="bike-service" options="-parameters" />
       <module name="car-service" options="-parameters" />

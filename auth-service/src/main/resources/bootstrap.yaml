@@ -20,7 +20,7 @@ spring:
             trust: smtp.gmail.com
 
 mail:
-  urlFront: http://localhost:4200/login/changepassword/
+  urlFront: http://localhost:4200/login/recoverpassword/
 
 
 

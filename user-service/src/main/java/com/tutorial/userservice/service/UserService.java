@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -29,15 +30,15 @@ public class UserService {
         return this.userRepository.findById(id);
     }
 
-    public User updateUser(UpdateUserDto updateUserDto) {
-        Optional<User> existingUser = userRepository.findById(updateUserDto.getId());
+    public User updateUser(Integer id,UpdateUserDto updateUserDto) {
+        Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isEmpty())
-            throw new RuntimeException("El usuario con id: " + updateUserDto.getId() + " no existe");
+            throw new RuntimeException("El usuario con id: " + id + " no existe");
         Optional<User> userWithSameUsername = userRepository.findByUserName(updateUserDto.getUserName());
-        if (userWithSameUsername.isPresent() && !userWithSameUsername.get().getId().equals(updateUserDto.getId()))
+        if (userWithSameUsername.isPresent() && !userWithSameUsername.get().getId().equals(id))
             throw new RuntimeException("El nombre de usuario ya está en uso");
         Optional<User> userWithSameEmail = userRepository.findByEmail(updateUserDto.getEmail());
-        if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(updateUserDto.getId()))
+        if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(id))
             throw new RuntimeException("El email ya está en uso");
         Optional<Role> role = roleRepository.findByRoleName(updateUserDto.getRole());
         if (role.isEmpty())
@@ -74,12 +75,19 @@ public class UserService {
         return userRepository.save(authUser);
     }
 
-    public List<User> getAll(){
-        return userRepository.findAll();
+    public List<User> getAll(String userName){
+        List<User> allUsers = userRepository.findAll();
+        return allUsers.stream()
+                .filter(user -> !user.getUserName().equals(userName))
+                .collect(Collectors.toList());
     }
 
     public void changePassword(String username,ChangePasswordDto changePasswordDto){
         Optional<User> user = userRepository.findByUserName(username);
+        if(changePasswordDto.getNewPassword() == null || changePasswordDto.getNewPassword().isBlank())
+            throw new RuntimeException("La contraseña nueva es invalida");
+        if(changePasswordDto.getConfirmPassword() == null || changePasswordDto.getConfirmPassword().isBlank())
+            throw new RuntimeException("La confirmacion de contraseña no es valida");
         if(user.isEmpty())
             throw new RuntimeException("El usuario " + username + " no existe");
         if (!passwordEncoder.matches(changePasswordDto.getOldPassword(), user.get().getPassword()))

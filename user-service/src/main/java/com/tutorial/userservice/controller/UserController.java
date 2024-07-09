@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<List<User>> getAll() {
-        List<User> users = userService.getAll();
+    public ResponseEntity<List<User>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<User> users = userService.getAll(jwtService.getUsernameFromToken(token));
         if(users.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(users);
@@ -47,7 +47,7 @@ public class UserController {
     public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             userService.deleteUser(id);
-            return ResponseEntity.ok().body("Usuario eliminado exitosamente.");
+            return ResponseEntity.ok().build();
         }catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -63,10 +63,10 @@ public class UserController {
         }
     }
 
-    @PutMapping("/actualizar")
-    public ResponseEntity<?> updateUser(@RequestBody UpdateUserDto dto){
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Integer id,@RequestBody UpdateUserDto dto){
         try{
-            User user = userService.updateUser(dto);
+            User user = userService.updateUser(id,dto);
             return ResponseEntity.ok().body(user);
         }catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -31,6 +31,12 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/email-password/**
+        - id: aula-service
+          uri: lb://aula-service
+          filters:
+            - AuthFilter
+          predicates:
+            - Path=/classroom/**
         - id: python-service
           uri: lb://PYTHON-SERVICE
           predicates:
