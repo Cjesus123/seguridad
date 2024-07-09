@@ -11,16 +11,8 @@ eureka:
 
 admin-paths:
   paths:
-    - uri: "/user/detalle/{1}[1-9]+[0-9]*"
-      method: "GET"
-    - uri: "/user/lista"
-      method: "GET"
-    - uri: "/user/eliminar/{1}[1-9]+[0-9]*"
-      method: "DELETE"
-    - uri: "/user/nuevo"
-      method: "POST"
-    - uri: "/user/actualizar"
-      method: "PUT"
+    - uri: "/user/**"
+      method: "*"
 
 spring:
   datasource:
