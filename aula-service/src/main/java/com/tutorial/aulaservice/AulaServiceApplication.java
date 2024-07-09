@@ -1,4 +1,4 @@
-package com.tutorial.carservice;
+package com.tutorial.aulaservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
