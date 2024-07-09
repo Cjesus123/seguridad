@@ -55,8 +55,6 @@ spring:
           uri: lb://docente-service
           filters:
             - AuthFilter
-          predicates:
-            - Path=/classroom/**
         - id: python-service
           uri: lb://PYTHON-SERVICE
           predicates:
