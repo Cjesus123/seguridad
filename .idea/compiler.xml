@@ -11,6 +11,8 @@
         <module name="auth-service" />
         <module name="config-service" />
         <module name="carrera-service" />
+        <module name="calendarioacademico-service" />
+        <module name="materia-service" />
         <module name="gateway-service" />
         <module name="aula-service" />
         <module name="plandeestudio-service" />
@@ -32,12 +34,14 @@
       <module name="aulas-service" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="bike-service" options="-parameters" />
+      <module name="calendarioacademico-service" options="-parameters" />
       <module name="car-service" options="-parameters" />
       <module name="carrera-service" options="-parameters" />
       <module name="config-service" options="-parameters" />
       <module name="docente-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="materia-service" options="-parameters" />
       <module name="plandeestudio-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>

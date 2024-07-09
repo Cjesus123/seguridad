@@ -39,6 +39,14 @@ spring:
           uri: lb://plandeestudio-service
           filters:
             - AuthFilter
+        - id: calendarioacademico-service
+          uri: lb://calendarioacademico-service
+          filters:
+            - AuthFilter
+        - id: materia-service
+          uri: lb://materia-service
+          filters:
+            - AuthFilter
         - id: aula-service
           uri: lb://aula-service
           filters:

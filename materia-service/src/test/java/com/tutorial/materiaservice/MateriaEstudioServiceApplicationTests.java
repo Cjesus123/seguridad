@@ -1,10 +1,10 @@
-package com.tutorial.plandeestudioservice;
+package com.tutorial.materiaservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PlanDeEstudioServiceApplicationTests {
+class MateriaServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
