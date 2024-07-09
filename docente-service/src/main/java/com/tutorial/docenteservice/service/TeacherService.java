@@ -59,7 +59,6 @@ public class TeacherService {
         teacherRepository.delete(teacher);
     }
 
-    @Transactional(readOnly = true)
     public void addAvailabilitiesToTeacher(Integer teacherId, List<Availability> availabilities) {
         Teacher teacher = teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new RuntimeException("Teacher not found with id: " + teacherId));
@@ -70,6 +69,13 @@ public class TeacherService {
         });
 
         teacherRepository.save(teacher); // Guardar para actualizar la lista de disponibilidades en Teacher
+    }
+
+    public List<Availability> getAvailabilitiesFromTeacher(Integer id){
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        if(teacher.isEmpty())
+            throw new RuntimeException("El docente no existe");
+        return teacher.get().getAvailabilities();
     }
 
     @Transactional

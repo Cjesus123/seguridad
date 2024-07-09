@@ -1,13 +1,13 @@
-package com.tutorial.docenteservice;
+package com.tutorial.carreraservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DocenteServiceApplication {
+public class CarreraServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DocenteServiceApplication.class, args);
+		SpringApplication.run(CarreraServiceApplication.class, args);
 	}
 
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Availability {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Enumerated(EnumType.STRING)
     private DayWeek day;

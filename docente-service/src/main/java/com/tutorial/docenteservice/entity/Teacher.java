@@ -19,7 +19,7 @@ public class Teacher {
     private String file;
     private String dni;
     private String email;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Availability> availabilities = new ArrayList<>();
 
     public Teacher(){}

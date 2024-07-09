@@ -20,6 +20,11 @@ public class TeacherController {
         return teacherService.getAllTeachers();
     }
 
+    @GetMapping("{id}/disponibilidad")
+    public List<Availability> getAvailabilityFromTeacher(@PathVariable Integer id){
+        return teacherService.getAvailabilitiesFromTeacher(id);
+    }
+
     @GetMapping("/{teacherId}")
     public Teacher getTeacherById(@PathVariable Integer teacherId) {
         return teacherService.getTeacherById(teacherId);
