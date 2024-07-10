@@ -45,17 +45,20 @@ public class JwtProvider {
 
     public boolean validate(String token, RequestDto dto) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-        }catch (Exception e){
+            String role = (String)Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role");
+            switch (role) {
+                case "ROLE_ADMIN":
+                    return true;
+                case "ROLE_DIRECTOR_CARRERA":
+                    return routeValidator.isDirectorCareer(dto);
+                case "ROLE_BEDELIA":
+                    return routeValidator.isBedelia(dto);
+                default:
+                    return false;
+            }
+        }catch (Exception e) {
             return false;
         }
-        if(!isAdmin(token) && routeValidator.isAdminPath(dto))
-            return false;
-        if(!isDirectorCareer(token) && routeValidator.isDirectorCareer(dto))
-            return false;
-        if(!isBedelia(token) && routeValidator.isBedelia(dto))
-            return false;
-        return true;
     }
 
     public String getUserNameFromToken(String token){
@@ -65,18 +68,4 @@ public class JwtProvider {
             return "bad token";
         }
     }
-
-    private boolean isAdmin(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role").equals("ROLE_ADMIN");
-    }
-
-    private boolean isDirectorCareer(String token){
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role").equals("ROLE_DIRECTOR_CARRERA");
-    }
-
-    private boolean isBedelia(String token){
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role").equals("ROLE_BEDELIA");
-    }
-
-
 }
