@@ -51,6 +51,10 @@ public class JwtProvider {
         }
         if(!isAdmin(token) && routeValidator.isAdminPath(dto))
             return false;
+        if(!isDirectorCareer(token) && routeValidator.isDirectorCareer(dto))
+            return false;
+        if(!isBedelia(token) && routeValidator.isBedelia(dto))
+            return false;
         return true;
     }
 
@@ -65,4 +69,14 @@ public class JwtProvider {
     private boolean isAdmin(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role").equals("ROLE_ADMIN");
     }
+
+    private boolean isDirectorCareer(String token){
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role").equals("ROLE_DIRECTOR_CARRERA");
+    }
+
+    private boolean isBedelia(String token){
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("role").equals("ROLE_BEDELIA");
+    }
+
+
 }

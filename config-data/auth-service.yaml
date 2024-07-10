@@ -9,10 +9,21 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
-admin-paths:
-  paths:
+paths:
+  admin:
     - uri: "/user/**"
       method: "*"
+    - uri: "/aula/**"
+      method: "*"
+    - uri: "/carrera/**"
+      method: "*"
+  director_carrera:
+    - uri: "/aula/**"
+      method: "*"
+  bedelia:
+    - uri: "/carrera/**"
+      method: "*"
+
 
 spring:
   datasource:
