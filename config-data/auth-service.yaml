@@ -10,19 +10,12 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 paths:
-  admin:
-    - uri: "/user/**"
-      method: "*"
-    - uri: "/aula/**"
-      method: "*"
-    - uri: "/carrera/**"
-      method: "*"
   director_carrera:
-    - uri: "/aula/**"
-      method: "*"
+    - uri: "/aula/lista"
+      method: "GET"
   bedelia:
-    - uri: "/carrera/**"
-      method: "*"
+    - uri: "/carrera"
+      method: "GET"
 
 
 
