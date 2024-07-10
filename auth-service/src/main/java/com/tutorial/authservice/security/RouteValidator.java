@@ -21,13 +21,19 @@ public class RouteValidator {
     private List<RequestDto> bedelia;
 
     public boolean isAdminPath(RequestDto dto) {
-        System.out.println("ENTRO A TESTEAR RUTAS DE ADMIN");
+        System.out.println("ENTRO A TESTEAR RUTAS DE ADMIN ");
+        for (RequestDto d : admin) {
+            System.out.println(d.getUri());
+        }
         return admin.stream().anyMatch(p ->
                 Pattern.matches(p.getUri(), dto.getUri()) && p.getMethod().equals(dto.getMethod()));
     }
 
     public boolean isDirectorCareer(RequestDto dto) {
         System.out.println("ENTRO A TESTEAR RUTAS DE DIRECTOR");
+        for (RequestDto d : directorCarrera) {
+            System.out.println(d.getUri());
+        }
         return directorCarrera.stream().anyMatch(p ->
                 Pattern.matches(p.getUri(), dto.getUri()) && p.getMethod().equals(dto.getMethod()));
     }

@@ -11,19 +11,16 @@ eureka:
 
 paths:
   admin:
-    - uri: "^/user/.*$"
-      method: ".*"
-    - uri: "^/aula/.*$"
-      method: ".*"
-    - uri: "^/carrera/.*$"
-      method: ".*"
+    - uri: "/user/**"
+      method: "*"
+    - uri: "/aula/**"
+      method: "*"
   director_carrera:
-    - uri: "^/aula/.*$"
-      method: ".*"
+    - uri: "/aula/**"
+      method: "*"
   bedelia:
-    - uri: "^/carrera/.*$"
-      method: ".*"
-
+    - uri: "/carrera/**"
+      method: "*"
 
 
 spring:
