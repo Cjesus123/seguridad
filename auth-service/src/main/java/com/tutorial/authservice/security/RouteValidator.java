@@ -26,7 +26,8 @@ public class RouteValidator {
             System.out.println(d.getUri());
         }
         return admin.stream().anyMatch(p ->
-                Pattern.matches(p.getUri(), dto.getUri()) && p.getMethod().equals(dto.getMethod()));
+                Pattern.compile(p.getUri()).matcher(dto.getUri()).matches() &&
+                        Pattern.compile(p.getMethod()).matcher(dto.getMethod()).matches());
     }
 
     public boolean isDirectorCareer(RequestDto dto) {
@@ -35,12 +36,13 @@ public class RouteValidator {
             System.out.println(d.getUri());
         }
         return directorCarrera.stream().anyMatch(p ->
-                Pattern.matches(p.getUri(), dto.getUri()) && p.getMethod().equals(dto.getMethod()));
+                Pattern.compile(p.getUri()).matcher(dto.getUri()).matches() &&
+                        Pattern.compile(p.getMethod()).matcher(dto.getMethod()).matches());
     }
 
     public boolean isBedelia(RequestDto dto) {
-        System.out.println("ENTRO A TESTEAR RUTAS DE BEDELIA");
         return bedelia.stream().anyMatch(p ->
-                Pattern.matches(p.getUri(), dto.getUri()) && p.getMethod().equals(dto.getMethod()));
+                Pattern.compile(p.getUri()).matcher(dto.getUri()).matches() &&
+                        Pattern.compile(p.getMethod()).matcher(dto.getMethod()).matches());
     }
 }
