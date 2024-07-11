@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/microservices-tutorial-auth-jwt-role.iml" filepath="$PROJECT_DIR$/.idea/microservices-tutorial-auth-jwt-role.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calendarioacademico-service/calendarioacademico-service.iml" filepath="$PROJECT_DIR$/calendarioacademico-service/calendarioacademico-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carrera-service/carrera-service.iml" filepath="$PROJECT_DIR$/carrera-service/carrera-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/materia-service/materia-service.iml" filepath="$PROJECT_DIR$/materia-service/materia-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plandeestudio-service/plandeestudio-service.iml" filepath="$PROJECT_DIR$/plandeestudio-service/plandeestudio-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tesis-backend.iml" filepath="$PROJECT_DIR$/.idea/tesis-backend.iml" />
     </modules>
   </component>
 </project>

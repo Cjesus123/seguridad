@@ -13,6 +13,7 @@
         <module name="carrera-service" />
         <module name="calendarioacademico-service" />
         <module name="materia-service" />
+        <module name="gestion-academica-service" />
         <module name="gateway-service" />
         <module name="aula-service" />
         <module name="plandeestudio-service" />
@@ -21,28 +22,33 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="aula-service (1)" target="17" />
-      <module name="aulas-service" target="17" />
-      <module name="bike-service" target="17" />
-      <module name="car-service" target="17" />
+      <module name="calendarioacademico-service" target="17" />
+      <module name="carrera-service" target="17" />
+      <module name="eureka-server" target="17" />
+      <module name="gateway-server" target="17" />
+      <module name="materia-service" target="17" />
+      <module name="plandeestudio-service" target="17" />
+      <module name="rest-services" target="17" />
+      <module name="services-auth" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="aula-service" options="-parameters" />
-      <module name="aula-service (1)" options="-parameters" />
-      <module name="aulas-service" options="-parameters" />
       <module name="auth-service" options="-parameters" />
-      <module name="bike-service" options="-parameters" />
       <module name="calendarioacademico-service" options="-parameters" />
-      <module name="car-service" options="-parameters" />
       <module name="carrera-service" options="-parameters" />
       <module name="config-service" options="-parameters" />
       <module name="docente-service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
+      <module name="gateway-server" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="gestion-academica-service" options="-parameters" />
       <module name="materia-service" options="-parameters" />
       <module name="plandeestudio-service" options="-parameters" />
+      <module name="rest-services" options="-parameters" />
+      <module name="services-auth" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
