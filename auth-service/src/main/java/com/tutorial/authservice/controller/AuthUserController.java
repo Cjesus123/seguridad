@@ -25,9 +25,13 @@ public class AuthUserController {
 
     @PostMapping("/validate")
     public ResponseEntity<?> validate(@RequestParam String token, @RequestBody RequestDto dto){
-        TokenDto tokenDto = authUserService.validate(token, dto);
-        if(tokenDto == null)
-            return ResponseEntity.badRequest().body("Error el validar token");
-        return ResponseEntity.ok(tokenDto);
+        try {
+            TokenDto tokenDto = authUserService.validate(token, dto);
+            if (tokenDto == null)
+                return ResponseEntity.badRequest().body("Error el validar token");
+            return ResponseEntity.ok(tokenDto);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

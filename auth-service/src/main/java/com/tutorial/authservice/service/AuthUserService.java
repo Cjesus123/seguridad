@@ -41,10 +41,10 @@ public class AuthUserService {
 
     public TokenDto validate(String token, RequestDto dto) {
         if(!jwtProvider.validate(token, dto))
-            return null;
+            throw new RuntimeException("No tiene permiso para acceder a este recurso");
         String username = jwtProvider.getUserNameFromToken(token);
         if(authUserRepository.findByUserName(username).isEmpty())
-            return null;
+            throw new RuntimeException("Error al obtener el usuario");
         return new TokenDto(token);
     }
 
