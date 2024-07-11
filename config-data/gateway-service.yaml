@@ -27,6 +27,9 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/auth/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
             - Path=/email-password/**
         - id: calendario-academico-service
           uri: lb://calendario-academico-service

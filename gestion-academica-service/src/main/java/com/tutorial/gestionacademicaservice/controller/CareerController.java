@@ -1,6 +1,4 @@
 package com.tutorial.gestionacademicaservice.controller;
-
-import com.tutorial.gestionacademicaservice.clientes.PlanEstudioClient;
 import com.tutorial.gestionacademicaservice.entity.Career;
 import com.tutorial.gestionacademicaservice.entity.StudyPlan;
 import com.tutorial.gestionacademicaservice.service.CareerService;
@@ -14,13 +12,6 @@ import java.util.List;
 public class CareerController {
     @Autowired
     private CareerService careerService;
-    @Autowired
-    private PlanEstudioClient planEstudioClient;
-
-    @GetMapping("/{id}/planes")
-    public List<StudyPlan> getPlanesEstudio(@PathVariable Integer id) {
-        return planEstudioClient.getPlanesEstudioPorCarrera(id);
-    }
 
     @GetMapping
     public List<Career> getAllCareers() {
