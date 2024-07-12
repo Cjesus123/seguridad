@@ -62,7 +62,7 @@ spring:
           filters:
             - AuthFilter
         - id: python-service
-          uri: lb://PYTHON-SERVICE
+          uri: lb://python-service
           predicates:
             - Path=/python/**
           filters:

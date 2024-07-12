@@ -1,4 +1,6 @@
 package com.tutorial.aulaservice.DTO;
 
-public record ClassroomDTO(String name, int capacity) {
+import com.tutorial.aulaservice.enums.ClassroomType;
+
+public record ClassroomDTO(String name, int capacity, ClassroomType classroomType) {
 }
