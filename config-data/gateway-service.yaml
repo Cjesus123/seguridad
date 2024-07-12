@@ -31,24 +31,6 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/email-password/**
-        - id: calendario-academico-service
-          uri: lb://calendario-academico-service
-          predicates:
-            - Path=/plandeestudio/**
-          filters:
-            - AuthFilter
-        - id: aula-service
-          uri: lb://aula-service
-          predicates:
-            - Path=/aula/**
-          filters:
-            - AuthFilter
-        - id: docente-service
-          uri: lb://docente-service
-          predicates:
-            - Path=/docente/**
-          filters:
-            - AuthFilter
         - id: python-service
           uri: lb://PYTHON-SERVICE
           predicates:
