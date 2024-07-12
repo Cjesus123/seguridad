@@ -20,7 +20,7 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/user/**
+            - Path=/users/**
           filters:
             - AuthFilter
         - id: auth-service
@@ -34,19 +34,31 @@ spring:
         - id: aula-service
           uri: lb://aula-service
           predicates:
-            - Path=/aula/**
+            - Path=/aulas/**
           filters:
             - AuthFilter
         - id: docente-service
           uri: lb://docente-service
           predicates:
-            - Path=/docente/**
+            - Path=/docentes/**
           filters:
             - AuthFilter
         - id: gestion-academica-service
           uri: lb://gestion-academica-service
           predicates:
             - Path=/materias/**
+          filters:
+            - AuthFilter
+        - id: gestion-academica-service
+          uri: lb://gestion-academica-service
+          predicates:
+            - Path=/carreras/**
+          filters:
+            - AuthFilter
+        - id: gestion-academica-service
+          uri: lb://gestion-academica-service
+          predicates:
+            - Path=/planes-de-estudio/**
           filters:
             - AuthFilter
         - id: python-service

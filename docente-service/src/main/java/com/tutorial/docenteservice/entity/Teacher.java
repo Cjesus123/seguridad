@@ -3,14 +3,13 @@ package com.tutorial.docenteservice.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Teacher {
+public class Teacher{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,6 +20,8 @@ public class Teacher {
     private String email;
     @OneToMany
     private List<Availability> availabilities = new ArrayList<>();
+    @ManyToMany(mappedBy = "teachers")
+    private List<Subject> subjects;
 
     public Teacher(){}
 
@@ -32,4 +33,5 @@ public class Teacher {
         this.dni = dni;
         this.email = email;
     }
+
 }

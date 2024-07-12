@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/aula")
+@RequestMapping("aulas")
 public class ClassroomController {
 
     @Autowired
     ClassRoomService classRoomService;
 
-    @GetMapping("/lista")
+    @GetMapping
     public ResponseEntity<List<Classroom>> getAll() {
         List<Classroom> classrooms = classRoomService.findAll();
         if(classrooms.isEmpty())
@@ -25,7 +25,7 @@ public class ClassroomController {
         return ResponseEntity.ok(classrooms);
     }
 
-    @GetMapping("/detalle/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") int id) {
         Optional<Classroom> classroom = classRoomService.findById(id);
         if(classroom.isEmpty())
@@ -33,7 +33,7 @@ public class ClassroomController {
         return ResponseEntity.ok(classroom.get());
     }
 
-    @PostMapping("/nuevo")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody ClassroomDTO classroomDTO){
         try {
             return ResponseEntity.ok(classRoomService.save(classroomDTO));
@@ -41,7 +41,7 @@ public class ClassroomController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id,@RequestBody ClassroomDTO classroomDTO){
         try {
             return ResponseEntity.ok(classRoomService.update(id,classroomDTO));
@@ -50,7 +50,7 @@ public class ClassroomController {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> save(@PathVariable int id){
         try {
             classRoomService.delete(id);

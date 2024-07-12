@@ -1,5 +1,6 @@
 package com.tutorial.docenteservice.service;
 
+import com.tutorial.docenteservice.DTO.TeacherDTO;
 import com.tutorial.docenteservice.entity.Availability;
 import com.tutorial.docenteservice.entity.Teacher;
 import com.tutorial.docenteservice.repository.AvailabilityRepository;
@@ -26,42 +27,42 @@ public class TeacherService {
     }
 
     @Transactional(readOnly = true)
-    public Teacher getTeacherById(Integer id) {
-        Optional<Teacher> teacherOptional = teacherRepository.findById(id);
-        return teacherOptional.orElse(null);
+    public Optional<Teacher> getTeacherById(Integer id) {
+        return teacherRepository.findById(id);
     }
 
     @Transactional
-    public Teacher createTeacher(Teacher teacher) {
+    public Teacher createTeacher(TeacherDTO teacherDTO){
+        Teacher teacher = new Teacher(null,teacherDTO.name(), teacherDTO.lastName(), teacherDTO.file(), teacherDTO.dni(), teacherDTO.email());
         return teacherRepository.save(teacher);
     }
 
     @Transactional
     public Teacher updateTeacher(Integer id, Teacher updatedTeacher) {
-        Teacher teacher = getTeacherById(id);
-        if (teacher == null) {
-            throw new RuntimeException("Teacher not found with id: " + id);
+        Optional<Teacher> teacher = getTeacherById(id);
+        if (teacher.isEmpty()) {
+            throw new RuntimeException("No existe el docente con id: " + id);
         }
-        teacher.setName(updatedTeacher.getName());
-        teacher.setLastName(updatedTeacher.getLastName());
-        teacher.setFile(updatedTeacher.getFile());
-        teacher.setDni(updatedTeacher.getDni());
-        teacher.setEmail(updatedTeacher.getEmail());
-        return teacherRepository.save(teacher);
+        teacher.get().setName(updatedTeacher.getName());
+        teacher.get().setLastName(updatedTeacher.getLastName());
+        teacher.get().setFile(updatedTeacher.getFile());
+        teacher.get().setDni(updatedTeacher.getDni());
+        teacher.get().setEmail(updatedTeacher.getEmail());
+        return teacherRepository.save(teacher.get());
     }
 
     @Transactional
     public void deleteTeacher(Integer id) {
-        Teacher teacher = getTeacherById(id);
-        if (teacher == null) {
-            throw new RuntimeException("Teacher not found with id: " + id);
+        Optional<Teacher> teacher = getTeacherById(id);
+        if (teacher.isEmpty()) {
+            throw new RuntimeException("No existe el docente con id: " + id);
         }
-        teacherRepository.delete(teacher);
+        teacherRepository.delete(teacher.get());
     }
 
     public void addAvailabilitiesToTeacher(Integer teacherId, List<Availability> availabilities) {
         Teacher teacher = teacherRepository.findById(teacherId)
-                .orElseThrow(() -> new RuntimeException("Teacher not found with id: " + teacherId));
+                .orElseThrow(() -> new RuntimeException("No existe el docente con id: " + teacherId));
 
         availabilities.forEach(availability -> {
             availabilityRepository.save(availability);

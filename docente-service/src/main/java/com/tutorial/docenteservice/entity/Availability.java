@@ -22,10 +22,20 @@ public class Availability {
 
     public Availability() {}
 
-    public Availability(DayWeek day, String startTime, String endTime) {
+    public Availability(Integer id,DayWeek day, String startTime, String endTime) {
+        validator(day,startTime,endTime);
+        this.id = id;
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    private void validator(DayWeek day, String startTime, String endTime) {
+        if(day == null)
+            throw new RuntimeException("El dia no es valido");
+        if(startTime == null || endTime == null){
+            throw new RuntimeException("Horarios no validos");
+        }
     }
 
 }

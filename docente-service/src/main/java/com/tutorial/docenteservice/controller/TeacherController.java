@@ -1,38 +1,53 @@
 package com.tutorial.docenteservice.controller;
 
+import com.tutorial.docenteservice.DTO.TeacherDTO;
 import com.tutorial.docenteservice.entity.Availability;
 import com.tutorial.docenteservice.entity.Teacher;
 import com.tutorial.docenteservice.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/docente")
+@RequestMapping("docentes")
 public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
 
     @GetMapping
-    public List<Teacher> getAllTeachers() {
-        return teacherService.getAllTeachers();
+    public ResponseEntity<?> getAllTeachers() {
+        try{
+            return ResponseEntity.ok(teacherService.getAllTeachers());
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
-    @GetMapping("{id}/disponibilidad")
+    @GetMapping("{id}/disponibilidades")
     public List<Availability> getAvailabilityFromTeacher(@PathVariable Integer id){
         return teacherService.getAvailabilitiesFromTeacher(id);
     }
 
     @GetMapping("/{teacherId}")
-    public Teacher getTeacherById(@PathVariable Integer teacherId) {
-        return teacherService.getTeacherById(teacherId);
+    public ResponseEntity<?> getTeacherById(@PathVariable Integer teacherId) {
+        try {
+            return ResponseEntity.ok(teacherService.getTeacherById(teacherId));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping
-    public Teacher createTeacher(@RequestBody Teacher teacher) {
-        return teacherService.createTeacher(teacher);
+    public ResponseEntity<?> createTeacher(@RequestBody TeacherDTO teacher) {
+        try {
+            return ResponseEntity.ok(teacherService.createTeacher(teacher));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/{teacherId}")
@@ -45,12 +60,12 @@ public class TeacherController {
         teacherService.deleteTeacher(teacherId);
     }
 
-    @PostMapping("/{teacherId}/availabilities")
+    @PostMapping("/{teacherId}/disponibilidades")
     public void addAvailabilitiesToTeacher(@PathVariable Integer teacherId, @RequestBody List<Availability> availabilities) {
         teacherService.addAvailabilitiesToTeacher(teacherId, availabilities);
     }
 
-    @DeleteMapping("/{teacherId}/availabilities")
+    @DeleteMapping("/{teacherId}/disponibilidades")
     public void removeAvailabilitiesFromTeacher(@PathVariable Integer teacherId, @RequestBody List<Long> availabilityIds) {
         teacherService.removeAvailabilitiesFromTeacher(teacherId, availabilityIds);
     }

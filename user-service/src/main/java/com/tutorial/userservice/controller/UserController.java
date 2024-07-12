@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     JWTService jwtService;
 
-    @GetMapping("/detalle/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id){
         Optional<User> user = userService.getById(id);
         if(user.isPresent()){
@@ -34,7 +34,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/lista")
+    @GetMapping
     public ResponseEntity<List<User>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         List<User> users = userService.getAll(jwtService.getUsernameFromToken(token));
         if(users.isEmpty())
@@ -43,7 +43,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             userService.deleteUser(id);
@@ -53,7 +53,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/nuevo")
+    @PostMapping
     public ResponseEntity<?> create(@RequestBody NewUserDto dto){
         try {
             User user = userService.save(dto);
@@ -63,7 +63,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Integer id,@RequestBody UpdateUserDto dto){
         try{
             User user = userService.updateUser(id,dto);
