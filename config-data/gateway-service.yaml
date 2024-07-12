@@ -43,6 +43,12 @@ spring:
             - Path=/docente/**
           filters:
             - AuthFilter
+        - id: gestion-academica-service
+          uri: lb://gestion-academica-service
+          predicates:
+            - Path=/materias/**
+          filters:
+            - AuthFilter
         - id: python-service
           uri: lb://PYTHON-SERVICE
           predicates:
