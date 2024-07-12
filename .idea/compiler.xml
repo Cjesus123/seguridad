@@ -10,12 +10,9 @@
         <module name="eureka-service" />
         <module name="auth-service" />
         <module name="config-service" />
-        <module name="carrera-service" />
-        <module name="calendarioacademico-service" />
-        <module name="materia-service" />
+        <module name="gestion-academica-service" />
         <module name="gateway-service" />
         <module name="aula-service" />
-        <module name="plandeestudio-service" />
         <module name="user-service" />
         <module name="docente-service" />
       </profile>
@@ -24,7 +21,11 @@
       <module name="aula-service (1)" target="17" />
       <module name="aulas-service" target="17" />
       <module name="bike-service" target="17" />
+      <module name="calendarioacademico-service" target="17" />
       <module name="car-service" target="17" />
+      <module name="carrera-service" target="17" />
+      <module name="materia-service" target="17" />
+      <module name="plandeestudio-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -41,6 +42,7 @@
       <module name="docente-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="gestion-academica-service" options="-parameters" />
       <module name="materia-service" options="-parameters" />
       <module name="plandeestudio-service" options="-parameters" />
       <module name="user-service" options="-parameters" />

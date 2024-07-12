@@ -17,12 +17,17 @@
         <option value="$PROJECT_DIR$/plandeestudio-service/pom.xml" />
         <option value="$PROJECT_DIR$/materia-service/pom.xml" />
         <option value="$PROJECT_DIR$/calendarioacademico-service/pom.xml" />
+        <option value="$PROJECT_DIR$/gestion-academica-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/bike-service/pom.xml" />
+        <option value="$PROJECT_DIR$/calendarioacademico-service/pom.xml" />
         <option value="$PROJECT_DIR$/car-service/pom.xml" />
+        <option value="$PROJECT_DIR$/carrera-service/pom.xml" />
+        <option value="$PROJECT_DIR$/materia-service/pom.xml" />
+        <option value="$PROJECT_DIR$/plandeestudio-service/pom.xml" />
       </set>
     </option>
   </component>

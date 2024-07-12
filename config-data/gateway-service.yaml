@@ -31,30 +31,6 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/email-password/**
-        - id: carrera-service
-          uri: lb://carrera-service
-          predicates:
-            - Path=/carrera/**
-          filters:
-            - AuthFilter
-        - id: plandeestudio-service
-          uri: lb://plandeestudio-service
-          predicates:
-            - Path=/plandeestudio/**
-          filters:
-            - AuthFilter
-        - id: calendarioacademico-service
-          uri: lb://calendarioacademico-service
-          predicates:
-            - Path=/calendarioacademico/**
-          filters:
-            - AuthFilter
-        - id: materia-service
-          uri: lb://materia-service
-          predicates:
-            - Path=/materia/**
-          filters:
-            - AuthFilter
         - id: aula-service
           uri: lb://aula-service
           predicates:
