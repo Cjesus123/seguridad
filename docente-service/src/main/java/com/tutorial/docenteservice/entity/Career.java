@@ -14,28 +14,14 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-public class Career{
+public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "director_id", referencedColumnName = "id")
+    private Teacher director;
     private String name;
     @OneToMany(mappedBy = "career", cascade = CascadeType.ALL)
     private List<StudyPlan> studyPlans = new ArrayList<>();
-
-    public Career(Integer id,String name){
-        validator(name);
-        this.id = id;
-        this.name = name;
-    }
-
-    private void validator(String name){
-        if(name == null || name.isBlank()){
-            throw new RuntimeException("El nombre no es valido");
-        }
-    }
-
-    public void updateData(String name){
-        validator(name);
-        setName(name);
-    }
 }

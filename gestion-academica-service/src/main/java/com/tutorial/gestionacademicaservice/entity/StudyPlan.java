@@ -1,6 +1,7 @@
 package com.tutorial.gestionacademicaservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +22,9 @@ public class StudyPlan {
     private Integer id;
     private String name;
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "career_id")
     private Career career;
+    @JsonIgnoreProperties("studyPlan")
     @OneToMany(mappedBy = "studyPlan", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TeacherService {
+public class TeacherService{
 
     @Autowired
     private TeacherRepository teacherRepository;
@@ -22,38 +22,42 @@ public class TeacherService {
     private AvailabilityRepository availabilityRepository;
 
     @Transactional(readOnly = true)
-    public List<Teacher> getAllTeachers() {
+    public List<Teacher> getAll() {
         return teacherRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Optional<Teacher> getTeacherById(Integer id) {
+    public Optional<Teacher> getById(Integer id) {
         return teacherRepository.findById(id);
     }
 
     @Transactional
-    public Teacher createTeacher(TeacherDTO teacherDTO){
-        Teacher teacher = new Teacher(null,teacherDTO.name(), teacherDTO.lastName(), teacherDTO.file(), teacherDTO.dni(), teacherDTO.email());
-        return teacherRepository.save(teacher);
+    public void save(TeacherDTO teacherDTO){
+        if(teacherRepository.existsByLegajo(teacherDTO.legajo()))
+            throw new RuntimeException("El docente con el legajo " + teacherDTO.legajo() + " ya existe");
+        if(teacherRepository.existsByDni(teacherDTO.dni()))
+            throw new RuntimeException("El docente con el dni " + teacherDTO.dni() + " ya existe");
+        Teacher teacher = new Teacher(null,teacherDTO.name(), teacherDTO.lastName(), teacherDTO.legajo(), teacherDTO.dni(), teacherDTO.email());
+        teacherRepository.save(teacher);
     }
 
     @Transactional
-    public Teacher updateTeacher(Integer id, Teacher updatedTeacher) {
-        Optional<Teacher> teacher = getTeacherById(id);
+    public Teacher update(Integer id, Teacher updatedTeacher) {
+        Optional<Teacher> teacher = getById(id);
         if (teacher.isEmpty()) {
             throw new RuntimeException("No existe el docente con id: " + id);
         }
         teacher.get().setName(updatedTeacher.getName());
         teacher.get().setLastName(updatedTeacher.getLastName());
-        teacher.get().setFile(updatedTeacher.getFile());
+        teacher.get().setLegajo(updatedTeacher.getLegajo());
         teacher.get().setDni(updatedTeacher.getDni());
         teacher.get().setEmail(updatedTeacher.getEmail());
         return teacherRepository.save(teacher.get());
     }
 
     @Transactional
-    public void deleteTeacher(Integer id) {
-        Optional<Teacher> teacher = getTeacherById(id);
+    public void delete(Integer id) {
+        Optional<Teacher> teacher = getById(id);
         if (teacher.isEmpty()) {
             throw new RuntimeException("No existe el docente con id: " + id);
         }
@@ -69,7 +73,7 @@ public class TeacherService {
             teacher.getAvailabilities().add(availability);
         });
 
-        teacherRepository.save(teacher); // Guardar para actualizar la lista de disponibilidades en Teacher
+        teacherRepository.save(teacher);
     }
 
     public List<Availability> getAvailabilitiesFromTeacher(Integer id){
@@ -79,21 +83,7 @@ public class TeacherService {
         return teacher.get().getAvailabilities();
     }
 
-    @Transactional
-    public void removeAvailabilitiesFromTeacher(Integer teacherId, List<Long> availabilityIds) {
-        Teacher teacher = teacherRepository.findById(teacherId)
-                .orElseThrow(() -> new RuntimeException("Teacher not found with id: " + teacherId));
-
-        availabilityIds.forEach(availabilityId -> {
-            Availability availabilityToRemove = teacher.getAvailabilities().stream()
-                    .filter(av -> av.getId().equals(availabilityId))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Availability not found with id: " + availabilityId));
-
-            teacher.getAvailabilities().remove(availabilityToRemove);
-            availabilityRepository.delete(availabilityToRemove);
-        });
-
-        teacherRepository.save(teacher); // Guardar para actualizar la lista de disponibilidades en Teacher
+    public boolean existsTeacherByEmail(String email) {
+        return teacherRepository.existsByEmail(email);
     }
 }

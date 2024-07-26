@@ -15,7 +15,7 @@ public class Teacher{
     private Integer id;
     private String name;
     private String lastName;
-    private String file;
+    private String legajo;
     private String dni;
     private String email;
     @OneToMany
@@ -25,13 +25,36 @@ public class Teacher{
 
     public Teacher(){}
 
-    public Teacher(Integer id, String name, String lastName, String file, String dni, String email) {
+    public Teacher(Integer id, String name, String lastName, String legajo, String dni, String email)
+    {
+        validateData(name,lastName,legajo,dni,email);
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.file = file;
+        this.legajo = legajo;
         this.dni = dni;
         this.email = email;
     }
 
+    private void validateData(String name, String lastName, String legajo, String dni, String email){
+        if(name == null || name.isBlank())
+            throw new RuntimeException("El nombre del docente no es valido");
+        if(lastName == null || lastName.isBlank())
+            throw new RuntimeException("El apellido del docente no es valido");
+        if (legajo == null || legajo.isBlank())
+            throw new RuntimeException("El legajo del docente no es valido");
+        if(dni == null || dni.isBlank())
+            throw new RuntimeException("El dni del docente no es valido");
+        if (email == null || email.isBlank())
+            throw new RuntimeException("El email del docente no es valido");
+    }
+
+    public void updateData(String name, String lastName, String legajo, String dni, String email){
+        validateData(name,lastName,legajo,dni,email);
+        setName(name);
+        setLastName(lastName);
+        setLegajo(legajo);
+        setDni(dni);
+        setEmail(email);
+    }
 }

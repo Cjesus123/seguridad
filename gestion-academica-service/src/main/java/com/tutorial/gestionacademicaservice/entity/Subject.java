@@ -1,6 +1,8 @@
 package com.tutorial.gestionacademicaservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tutorial.gestionacademicaservice.enums.PeriodType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,11 +22,13 @@ public class Subject {
     private Integer id;
     private String name;
     private int numberRegistered;
+    @Enumerated(EnumType.STRING)
+    private PeriodType periodType;
     private int subjectYear;
-    private int WeeklyLoad;
+    private int weeklyLoad;
+    @JsonIgnoreProperties("subjects")
     @ManyToOne
     @JoinColumn
-    @JsonBackReference
     private StudyPlan studyPlan;
     @ManyToMany
     @JoinTable(
@@ -33,6 +37,7 @@ public class Subject {
             inverseJoinColumns = @JoinColumn(name = "overlap_subject_id")
     )
     private List<Subject> overlappingMatters;
+    @JsonIgnoreProperties("subjects")
     @ManyToMany
     @JoinTable(
             name = "subject_teacher",

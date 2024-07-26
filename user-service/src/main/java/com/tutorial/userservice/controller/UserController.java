@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<List<User>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
         List<User> users = userService.getAll(jwtService.getUsernameFromToken(token));
         if(users.isEmpty())
             return ResponseEntity.noContent().build();

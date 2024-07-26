@@ -17,9 +17,6 @@ paths:
     - uri: "/carrera"
       method: "GET"
 
-
-
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/database

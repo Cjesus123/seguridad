@@ -1,8 +1,9 @@
 package com.tutorial.docenteservice.DTO;
 
-public record TeacherDTO(String name,
+public record TeacherDTO(
+        String name,
         String lastName,
-        String file,
+        String legajo,
         String dni,
         String email) {
 }

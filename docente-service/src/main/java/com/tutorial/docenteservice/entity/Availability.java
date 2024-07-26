@@ -13,21 +13,19 @@ public class Availability {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Enumerated(EnumType.STRING)
     private DayWeek day;
-
-    private String startTime; // Formato "HH:mm"
-    private String endTime;    // Formato "HH:mm"
+    private String startTime;
+    private String endTime;
 
     public Availability() {}
 
     public Availability(Integer id,DayWeek day, String startTime, String endTime) {
-        validator(day,startTime,endTime);
-        this.id = id;
-        this.day = day;
-        this.startTime = startTime;
-        this.endTime = endTime;
+            validator(day,startTime,endTime);
+            this.id = id;
+            this.day = day;
+            this.startTime = startTime;
+            this.endTime = endTime;
     }
 
     private void validator(DayWeek day, String startTime, String endTime) {

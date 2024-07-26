@@ -46,7 +46,7 @@ public class CareerService {
     public Career addStudyPlansToCareer(Integer careerId, List<StudyPlan> studyPlans) {
         Career career = getCareerById(careerId);
         for (StudyPlan studyPlan : studyPlans) {
-            studyPlan.setCareer(career); // Establecer la relación con Career
+            studyPlan.setCareer(career);
             career.getStudyPlans().add(studyPlan);
         }
         return careerRepository.save(career);

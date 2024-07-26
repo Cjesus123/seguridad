@@ -4,7 +4,7 @@ import com.tutorial.authservice.dto.AuthUserDto;
 import com.tutorial.authservice.dto.RequestDto;
 import com.tutorial.authservice.dto.TokenDto;
 import com.tutorial.authservice.entity.User;
-import com.tutorial.authservice.repository.AuthUserRepository;
+import com.tutorial.authservice.repository.UserRepository;
 import com.tutorial.authservice.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class AuthUserService {
 
     @Autowired
-    AuthUserRepository authUserRepository;
+    UserRepository userRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -25,12 +25,12 @@ public class AuthUserService {
     JwtProvider jwtProvider;
 
     public Optional<User> getByUsernameOrEmail(String usernameOrEmail){
-        return this.authUserRepository.findByUserNameOrEmail(usernameOrEmail,usernameOrEmail);
+        return this.userRepository.findByUserNameOrEmail(usernameOrEmail,usernameOrEmail);
     }
 
 
     public TokenDto login(AuthUserDto dto) {
-        Optional<User> user = authUserRepository.findByUserName(dto.getUserName());
+        Optional<User> user = userRepository.findByUserName(dto.getUserName());
         if(user.isEmpty()) {
             return null;
         }
@@ -43,16 +43,16 @@ public class AuthUserService {
         if(!jwtProvider.validate(token, dto))
             throw new RuntimeException("No tiene permiso para acceder a este recurso");
         String username = jwtProvider.getUserNameFromToken(token);
-        if(authUserRepository.findByUserName(username).isEmpty())
+        if(userRepository.findByUserName(username).isEmpty())
             throw new RuntimeException("Error al obtener el usuario");
         return new TokenDto(token);
     }
 
     public void save(User user){
-        authUserRepository.save(user);
+        userRepository.save(user);
     }
 
     public Optional<User> getByTokenPassword(String tokenPassword){
-        return this.authUserRepository.findByTokenPassword(tokenPassword);
+        return this.userRepository.findByTokenPassword(tokenPassword);
     }
 }

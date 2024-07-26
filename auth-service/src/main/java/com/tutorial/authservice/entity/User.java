@@ -22,6 +22,7 @@ public class User {
     private String password;
     private String tokenPassword;
     @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public String getRole() {

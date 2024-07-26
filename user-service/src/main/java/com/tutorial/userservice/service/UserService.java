@@ -1,5 +1,6 @@
 package com.tutorial.userservice.service;
 
+import com.tutorial.userservice.client.TeacherClient;
 import com.tutorial.userservice.dto.ChangePasswordDto;
 import com.tutorial.userservice.dto.NewUserDto;
 import com.tutorial.userservice.dto.UpdateUserDto;
@@ -19,6 +20,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TeacherClient teacherClient;
 
     @Autowired
     RoleRepository roleRepository;
@@ -63,6 +67,11 @@ public class UserService {
             throw new RuntimeException("El nombre de usuario ya existe");
         if(userRepository.findByEmail(dto.getEmail()).isPresent()){
             throw new RuntimeException("El email ya existe");
+        }
+        if(dto.getRole().name().equals("ROLE_DIRECTOR_CARRERA")){
+            if(!teacherClient.existsTeacherByEmail(dto.getEmail())){
+                throw new RuntimeException("El docente con email" + dto.getEmail() + " no existe" );
+            }
         }
         Optional<Role> role = roleRepository.findByRoleName(dto.getRole());
         if (role.isEmpty()) {

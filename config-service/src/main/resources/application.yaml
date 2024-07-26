@@ -6,7 +6,7 @@ spring:
       server:
         git:
           default-label: main
-          uri: https://github.com/Cjesus123/seguridad
+          uri: https://github.com/renzo611/tesis-backend
           search-paths: config-data
   application:
     name: config-service

@@ -26,6 +26,7 @@ public class SubjectController {
 
     @PostMapping
     public Subject createSubject(@RequestBody Subject subject) {
+        System.out.println(subject.getPeriodType());
         return subjectService.createSubject(subject);
     }
 

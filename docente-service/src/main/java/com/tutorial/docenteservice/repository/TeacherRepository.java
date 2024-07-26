@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
+public interface TeacherRepository extends JpaRepository<Teacher, Integer>{
+    boolean existsByLegajo(String legajo);
+    boolean existsByDni(String dni);
     Optional<Teacher> findById(int id);
+    boolean existsByEmail(String email);
 }
