@@ -64,4 +64,4 @@ spring:
         - id: python-service
           uri: lb://python-service
           predicates:
-            - Path=/python/**
+            - Path=/asignacion/**
