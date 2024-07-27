@@ -65,5 +65,3 @@ spring:
           uri: lb://python-service
           predicates:
             - Path=/python/**
-          filters:
-              - StripPrefix=1
